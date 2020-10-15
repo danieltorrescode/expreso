@@ -2,6 +2,6 @@ const settings = {};
 
 settings.secret = 'mevn.key';
 settings.port = 8080;
-settings.origins = {origin: 'http://127.0.0.1:8000'}; 
+settings.origins = {origin: 'http://localhost:8087'}; 
 
 module.exports = settings;

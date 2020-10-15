@@ -24,8 +24,8 @@ require('./config/passport')(passport);
 
 // Routes
 app.use('/', require('./api/home/routes'));
-app.use('/api/mevn/users', require('./api/users/routes'));
-app.use('/api/mevn/tasks', require('./api/tasks/routes'));
+app.use('/api/users', require('./api/users/routes'));
+app.use('/api/tasks', require('./api/tasks/routes'));
 
 // starting the server
 app.listen(app.get('port'), () => {
