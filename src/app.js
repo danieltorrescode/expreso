@@ -6,7 +6,9 @@ const app = express();
 
 const path = require('path');
 
-const { mongoose } = require('./config/database');
+const { mongoose } = require('./config/mongo');
+const postgres = require('./config/postgres');
+
 const settings = require('./config/settings');
 
 app.set('views', path.join(__dirname, 'public/pug/dist'));
@@ -30,4 +32,5 @@ app.use('/api/tasks', require('./api/tasks/routes'));
 // starting the server
 app.listen(app.get('port'), () => {
   console.log(`server on port ${app.get('port')}`);
+  postgres();
 });

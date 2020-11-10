@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const URI = 'mongodb://mongo:27017/mevn';
+const URI = 'mongodb://mongo:27017/expreso';
 
 mongoose
   .connect(URI, {
@@ -7,7 +7,9 @@ mongoose
     useFindAndModify: false,
     useUnifiedTopology: true,
   })
-  .then((db) => console.log('mongodb is connected'))
+  .then((db) =>
+    console.log('mongodb connection has been established successfully.')
+  )
   .catch((err) => console.error(err));
 
 module.exports = mongoose;
