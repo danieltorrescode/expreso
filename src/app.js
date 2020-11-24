@@ -7,7 +7,7 @@ const app = express();
 const path = require('path');
 
 const { mongoose } = require('./config/mongo');
-const postgres = require('./config/postgres');
+const { postgres, dbSync } = require('./config/postgres');
 
 const settings = require('./config/settings');
 
@@ -28,9 +28,11 @@ require('./config/passport')(passport);
 app.use('/', require('./api/home/routes'));
 app.use('/api/users', require('./api/users/routes'));
 app.use('/api/tasks', require('./api/tasks/routes'));
+app.use('/api/auth', require('./api/auth/routes'));
 
 // starting the server
 app.listen(app.get('port'), () => {
   console.log(`server on port ${app.get('port')}`);
   postgres();
+  // dbSync();
 });

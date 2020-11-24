@@ -1,9 +1,8 @@
 const { Sequelize } = require('sequelize');
+const settings = require('./settings');
 
 // Passing a connection URI
-const sequelize = new Sequelize(
-  'postgres://postgres:123@postgres:5432/expreso'
-); // Example for postgres
+const sequelize = new Sequelize(settings.postgres); // Example for postgres
 
 const postgres = async () => {
   try {
@@ -15,4 +14,13 @@ const postgres = async () => {
   }
   return true;
 };
-module.exports = postgres;
+
+const dbSync = async () => {
+  await sequelize.drop();
+  console.log('All tables dropped!');
+
+  await sequelize.sync({ force: true });
+  console.log('All models were synchronized successfully.');
+};
+
+module.exports = { postgres, sequelize, dbSync };

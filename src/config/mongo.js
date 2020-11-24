@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
-const URI = 'mongodb://mongo:27017/expreso';
+const settings = require('./settings');
+const URI = settings.mongo;
 
 mongoose
   .connect(URI, {
