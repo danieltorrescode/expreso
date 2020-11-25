@@ -11,14 +11,13 @@ authCtrl.getUsers = async (req, res, next) => {
 };
 
 authCtrl.createUser = async (req, res, next) => {
-  const user = new User({
+  const user = User.build({
     firstName: req.body.firstName,
     lastName: req.body.lastName,
     email: req.body.email,
     password: req.body.password,
   });
-
-  let hash = await authCtrl.generateHash(user.password, 10);
+  let hash = await authCtrl.generateHash(String(user.password), 10);
   user.password = hash;
   await user.save();
   // next middleware authCtrl.authenticate
@@ -33,7 +32,7 @@ authCtrl.generateHash = (password, salt) => {
 
 authCtrl.getUser = async (req, res, next) => {
   const { id } = req.params;
-  const user = await User.findById(id);
+  const user = await User.findByPk(id);
   res.json(user);
 };
 
@@ -45,12 +44,21 @@ authCtrl.editUser = async (req, res, next) => {
     email: req.body.email,
     password: req.body.password,
   };
-  await User.findByIdAndUpdate(id, { $set: user }, { new: true });
+
+  await User.update({ ...user }, {
+    where: {
+      id: id
+    }
+  });
   res.json([{ status: 'User Updated' }, id]);
 };
 
 authCtrl.deleteUser = async (req, res, next) => {
-  await User.findByIdAndRemove(req.params.id);
+  await User.destroy({
+    where: {
+      id: req.params.id
+    }
+  });
   res.json({ status: 'User Deleted' });
 };
 
@@ -58,13 +66,11 @@ authCtrl.authenticate = async (req, res, next) => {
   let email = req.body.email;
   let password = req.body.password.toString();
 
-  let user = await User.findOne({ email: email }, (err, user) => {
-    if (err) throw err;
-    if (!user) {
-      res.json({ success: false, text: 'user not founded' });
-    }
-    return user;
-  });
+  let user = await User.findOne({ where: { email: email } });
+
+  if (!user) {
+    res.json({ success: false, text: 'user not founded' });
+  }
 
   authCtrl.comparePassword(password, user.password, (err, isMatch) => {
     if (err) {

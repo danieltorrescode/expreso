@@ -14,6 +14,7 @@ module.exports = {
     semi: ['error', 'always'],
   },
   plugins: ['prettier'],
+  parser: 'babel-eslint',
   parserOptions: {
     sourceType: 'module',
     allowImportExportEverywhere: true,
