@@ -1,0 +1,21 @@
+version: '3.7'
+
+services:
+  node:
+    container_name: node
+    build:
+      context: .
+      dockerfile: DockerFile.node
+    volumes:
+      - .:/app
+    ports:
+      - "8006:8080"
+      - "8007:8001"
+    stdin_open: true
+    tty: true
+    networks:
+      - dev
+networks:
+  dev:
+    external:
+      name: dev
