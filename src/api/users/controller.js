@@ -58,13 +58,7 @@ userCtrl.authenticate = async (req, res, next) => {
   let email = req.body.email;
   let password = req.body.password.toString();
 
-  let user = await User.findOne({ email: email }, (err, user) => {
-    if (err) throw err;
-    if (!user) {
-      res.json({ success: false, text: 'user not founded' });
-    }
-    return user;
-  });
+  let user = await User.findOne({ email: email }).exec();
 
   userCtrl.comparePassword(password, user.password, (err, isMatch) => {
     if (err) {

@@ -3,6 +3,7 @@ const Task = require('./model');
 const taskCtrl = {};
 
 taskCtrl.getTasks = async (req, res, next) => {
+  // console.log(req.user._id);
   const tasks = await Task.find();
   res.json(tasks);
 };
