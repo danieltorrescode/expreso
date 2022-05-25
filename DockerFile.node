@@ -21,10 +21,10 @@ RUN chmod 755 ./.docker/entrypoint.sh
 
 USER node
 
-# run entrypoint.sh
-# ENTRYPOINT ["sh", "/app/.docker/entrypoint.sh"]
-
 # Install app dependencies
 # RUN npm install
 
-# CMD [ "npm", "run", "dev"]
+# run entrypoint.sh
+ENTRYPOINT ["sh", "/app/.docker/entrypoint.sh"]
+    
+CMD [ "npm", "run", "dev"]

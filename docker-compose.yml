@@ -2,7 +2,7 @@ version: '3.7'
 
 services:
   node:
-    container_name: node
+    container_name: express
     build:
       context: .
       dockerfile: DockerFile.node
