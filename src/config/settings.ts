@@ -1,8 +1,14 @@
 export const settings = {
   secret: 'expreso.key',
   port: 8080,
-  postgres: 'postgres://postgres:123@postgres:5432/expreso',
-  mongo: 'mongodb://mongo:27017/expreso',
+  postgres: {
+    host: '172.18.0.4',
+    port: 5432,
+    username: 'postgres',
+    password: '123',
+    database: 'workspace',
+  },
+  mongo: 'mongodb://172.18.0.2:27017/workspace',
   origins: {
     origin: ['http://localhost:8000', 'http://localhost:8087'],
   },

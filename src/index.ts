@@ -6,10 +6,12 @@ const app = express();
 
 // const path = require('path');
 
-// const { mongoose } = require('./config/mongo');
-// const { postgres, dbSync } = require('./config/postgres');
+import { postgresConnect } from './config/postgres.ts';
+import mongoConnect from './config/mongo.ts';
+mongoConnect();
+postgresConnect();
+import { settings } from './config/settings.ts';
 
-import { settings } from './config/settings';
 // const session = require('express-session')
 
 // app.set('views', path.join(__dirname, 'public/pug/dist'));
@@ -39,13 +41,14 @@ app.use(express.json());
 // });
 // require('./config/passport')(passport);
 
-// // Routes
-app.use('/', require('./api/home/routes'));
+// Routes
+import HomeRoutes from './api/home/routes.ts';
+app.use('/', HomeRoutes);
 // app.use('/api/users', require('./api/users/routes'));
 // app.use('/api/tasks', require('./api/tasks/routes'));
 // app.use('/api/auth', require('./api/auth/routes'));
 
-app.get('/', (_req, res) => {
+app.get('/hello', (_req, res) => {
   res.send('Hello World!');
 });
 // starting the server
