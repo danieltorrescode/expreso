@@ -1,4 +1,4 @@
-import { settings } from './settings.ts';
+import { settings } from './settings';
 import mongoose from 'mongoose';
 
 const URI = settings.mongo;

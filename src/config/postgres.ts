@@ -1,4 +1,4 @@
-import { settings } from './settings.ts';
+import { settings } from './settings';
 import { DataSource } from 'typeorm';
 
 export const postgres = new DataSource({

@@ -1,5 +1,4 @@
-const mongoose = require('mongoose');
-const { Schema } = mongoose;
+import { InferSchemaType, model, Schema } from 'mongoose';
 
 const userSchema = new Schema({
   firstName: { type: String, required: true },
@@ -8,4 +7,6 @@ const userSchema = new Schema({
   password: { type: String, required: true },
 });
 
-module.exports = mongoose.model('User', userSchema);
+type User = InferSchemaType<typeof userSchema>;
+
+export default model<User>('User', userSchema);

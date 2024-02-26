@@ -6,11 +6,9 @@ const app = express();
 
 // const path = require('path');
 
-import { postgresConnect } from './config/postgres.ts';
-import mongoConnect from './config/mongo.ts';
-mongoConnect();
-postgresConnect();
-import { settings } from './config/settings.ts';
+import { postgresConnect } from './config/postgres';
+import mongoConnect from './config/mongo';
+import { settings } from './config/settings';
 
 // const session = require('express-session')
 
@@ -42,18 +40,17 @@ app.use(express.json());
 // require('./config/passport')(passport);
 
 // Routes
-import HomeRoutes from './api/home/routes.ts';
+import HomeRoutes from './api/routes/homeRoutes.js';
+import TasksRoutes from './api/routes/tasksRoutes.js';
+import UsersRoutes from './api/routes/userRoutes.js';
 app.use('/', HomeRoutes);
-// app.use('/api/users', require('./api/users/routes'));
-// app.use('/api/tasks', require('./api/tasks/routes'));
+app.use('/tasks', TasksRoutes);
+app.use('/users', UsersRoutes);
 // app.use('/api/auth', require('./api/auth/routes'));
 
-app.get('/hello', (_req, res) => {
-  res.send('Hello World!');
-});
 // starting the server
 app.listen(app.get('port'), () => {
   console.log(`server on port ${app.get('port')}`);
-  // postgres();
-  // dbSync();
+  mongoConnect();
+  postgresConnect();
 });
