@@ -1,5 +1,5 @@
-import TaskModel from '../models/taskModel.js';
-import { Task } from '../../types.js';
+import TaskModel from './models';
+import { Task } from '../../types';
 
 export const getAllTasks = () => TaskModel.find();
 

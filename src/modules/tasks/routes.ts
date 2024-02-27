@@ -1,6 +1,6 @@
 import express from 'express';
 // import { RequestHandler, Response, Request, NextFunction } from 'express';
-import * as taskServices from '../services/taskServices';
+import * as taskServices from './services';
 const router = express.Router();
 // const passport = require('passport');
 // const task = require('./controller');

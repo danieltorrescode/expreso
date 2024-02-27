@@ -8,7 +8,7 @@ export const postgres = new DataSource({
   username: settings.postgres.username,
   password: settings.postgres.password,
   database: settings.postgres.database,
-  entities: ['src/entity/*.js'],
+  entities: ['src/entity/*'],
   logging: true,
   synchronize: true,
 });

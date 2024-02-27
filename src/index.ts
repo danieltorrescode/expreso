@@ -40,9 +40,9 @@ app.use(express.json());
 // require('./config/passport')(passport);
 
 // Routes
-import HomeRoutes from './api/routes/homeRoutes.js';
-import TasksRoutes from './api/routes/tasksRoutes.js';
-import UsersRoutes from './api/routes/userRoutes.js';
+import HomeRoutes from './modules/home/routes';
+import TasksRoutes from './modules/tasks/routes';
+import UsersRoutes from './modules/users/routes';
 app.use('/', HomeRoutes);
 app.use('/tasks', TasksRoutes);
 app.use('/users', UsersRoutes);
