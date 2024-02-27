@@ -1,46 +1,33 @@
 import express from 'express';
-// import { RequestHandler, Response, Request, NextFunction } from 'express';
-import * as taskServices from './services';
 const router = express.Router();
+import * as taskHandler from './handlers';
 // const passport = require('passport');
 // const task = require('./controller');
 
-router.get('/', async (req, res) => {
-  res.json(await taskServices.getAllTasks());
-});
-
+router.get(
+  '/',
+  // passport.authenticate('jwt', { session: true }),
+  taskHandler.getTasks,
+);
 router.post(
   '/',
   // passport.authenticate('jwt', { session: true }),
-  async (req, res) => {
-    // const { name, description } = req.body;
-    res.json(await taskServices.createTask({ ...req.body }));
-  },
+  taskHandler.createTask,
 );
 router.get(
   '/:id',
   // passport.authenticate('jwt', { session: true }),
-  async (req, res) => {
-    const { id } = req.params;
-    res.json(await taskServices.getTask(id));
-  },
+  taskHandler.getTask,
 );
 router.put(
   '/:id',
   // passport.authenticate('jwt', { session: true }),
-  async (req, res) => {
-    const { id } = req.params;
-    // const { name, description } = req.body;
-    res.json(await taskServices.editTask(id, { ...req.body }));
-  },
+  taskHandler.editTask,
 );
 router.delete(
   '/:id',
   // passport.authenticate('jwt', { session: true }),
-  async (req, res) => {
-    const { id } = req.params;
-    res.json(await taskServices.deleteTask(id));
-  },
+  taskHandler.deleteTask,
 );
 
 export default router;
