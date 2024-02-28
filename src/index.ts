@@ -4,11 +4,10 @@ import express from 'express';
 // const jwt = require('jsonwebtoken');
 const app = express();
 
-// const path = require('path');
+// import path from 'path';
 
-import { postgresConnect } from './config/postgres';
-import mongoConnect from './config/mongo';
-import { settings } from './config/settings';
+import { PORT } from './config/constants';
+import { DataBaseConnection, NoSQLDBConnection } from './config/databases';
 
 // const session = require('express-session')
 
@@ -16,7 +15,7 @@ import { settings } from './config/settings';
 // app.set('view engine', 'pug');
 
 // Settings
-app.set('port', process.env.PORT || settings.port);
+app.set('port', PORT);
 
 // Middlewares
 // app.use(cors(settings.origins));
@@ -43,14 +42,15 @@ app.use(express.json());
 import HomeRoutes from './modules/home/routes';
 import TasksRoutes from './modules/tasks/routes';
 import UsersRoutes from './modules/users/routes';
+import AuthRoutes from './modules/auth/routes';
 app.use('/', HomeRoutes);
 app.use('/tasks', TasksRoutes);
 app.use('/users', UsersRoutes);
-// app.use('/api/auth', require('./api/auth/routes'));
+app.use('/auth', AuthRoutes);
 
 // starting the server
 app.listen(app.get('port'), () => {
   console.log(`server on port ${app.get('port')}`);
-  mongoConnect();
-  postgresConnect();
+  DataBaseConnection();
+  NoSQLDBConnection();
 });

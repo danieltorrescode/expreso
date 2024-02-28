@@ -51,7 +51,8 @@ export const login: RequestHandler = async (req, res) => {
 
   const user = await UserModel.findOne({ email: email }).exec();
   if (user) {
-    res.json(authenticate(email, password));
+    // const response = await authenticate(user, password)
+    res.json(await authenticate(user, password));
   } else {
     res.json({
       success: false,

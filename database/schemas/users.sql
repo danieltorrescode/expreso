@@ -21,10 +21,10 @@ SET default_tablespace = '';
 SET default_table_access_method = heap;
 
 --
--- Name: Users; Type: TABLE; Schema: public; Owner: postgres
+-- Name: users; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE public."Users" (
+CREATE TABLE public."users" (
     id integer NOT NULL,
     "firstName" character varying(255) NOT NULL,
     "lastName" character varying(255),
@@ -35,13 +35,13 @@ CREATE TABLE public."Users" (
 );
 
 
-ALTER TABLE public."Users" OWNER TO postgres;
+ALTER TABLE public."users" OWNER TO postgres;
 
 --
--- Name: Users_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+-- Name: users_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
-CREATE SEQUENCE public."Users_id_seq"
+CREATE SEQUENCE public."users_id_seq"
     AS integer
     START WITH 1
     INCREMENT BY 1
@@ -50,28 +50,28 @@ CREATE SEQUENCE public."Users_id_seq"
     CACHE 1;
 
 
-ALTER TABLE public."Users_id_seq" OWNER TO postgres;
+ALTER TABLE public."users_id_seq" OWNER TO postgres;
 
 --
--- Name: Users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+-- Name: users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
-ALTER SEQUENCE public."Users_id_seq" OWNED BY public."Users".id;
-
-
---
--- Name: Users id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public."Users" ALTER COLUMN id SET DEFAULT nextval('public."Users_id_seq"'::regclass);
+ALTER SEQUENCE public."users_id_seq" OWNED BY public."users".id;
 
 
 --
--- Name: Users Users_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: users id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public."Users"
-    ADD CONSTRAINT "Users_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public."users" ALTER COLUMN id SET DEFAULT nextval('public."users_id_seq"'::regclass);
+
+
+--
+-- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."users"
+    ADD CONSTRAINT "users_pkey" PRIMARY KEY (id);
 
 
 --
