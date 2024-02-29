@@ -1,15 +1,15 @@
 import express from 'express';
-const router = express.Router();
+import passport from 'passport';
 import * as authHandler from './handlers';
-// const passport = require('passport');
+const router = express.Router();
 
+router.get(
+  '/profile',
+  passport.authenticate('jwt', { session: false }),
+  authHandler.profile,
+);
 router.get('/', authHandler.getUsers);
 router.post('/', authHandler.createUser, authHandler.login);
-// router.get(
-//   '/profile',
-//   // passport.authenticate('jwt', { session: false }),
-//   authHandler.profile,
-// );
 router.get('/:id', authHandler.getUser);
 router.put('/:id', authHandler.editUser);
 router.delete('/:id', authHandler.deleteUser);

@@ -3,12 +3,12 @@ import mongoose from 'mongoose';
 import { DB, NO_SQL_DB_URI, DEV } from './constants';
 // import path from 'path';
 
-const FILE_EXT = DEV ? 'ts' : 'js';
+const FILE_EXT = DEV === true ? 'ts' : 'js';
 
 export const database = new DataSource({
   type: 'postgres',
   host: DB.host,
-  port: Number(DB.port),
+  port: DB.port,
   username: DB.username,
   password: DB.password,
   database: DB.name,

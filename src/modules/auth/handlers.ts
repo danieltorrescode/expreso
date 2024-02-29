@@ -75,3 +75,7 @@ export const login: RequestHandler = async (req, res) => {
     });
   }
 };
+
+export const profile: RequestHandler = (req, res) => {
+  res.json({ user: req.user, request: req.headers });
+};

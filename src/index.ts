@@ -1,56 +1,60 @@
 import express from 'express';
+import session from 'express-session';
+import passport from 'passport';
 // const cors = require('cors');
-// const passport = require('passport');
 // const jwt = require('jsonwebtoken');
-const app = express();
-
 // import path from 'path';
 
-import { PORT } from './config/constants';
+import { PORT, SECRET } from './config/constants';
+import { User, UserSql } from './types';
 import { DataBaseConnection, NoSQLDBConnection } from './config/databases';
-
-// const session = require('express-session')
-
-// app.set('views', path.join(__dirname, 'public/pug/dist'));
-// app.set('view engine', 'pug');
-
-// Settings
-app.set('port', PORT);
-
-// Middlewares
-// app.use(cors(settings.origins));
-
-app.use(express.json());
-// app.use(session({
-//   secret: settings.secret,
-//   resave: false,
-//   saveUninitialized: true,
-//   // cookie: { maxAge: 60 * 60 * 1000 } // 1 hour
-// }));
-
-// app.use(passport.initialize());
-// app.use(passport.session());
-// passport.serializeUser(function(user, done) {
-//   done(null, user);
-// });
-// passport.deserializeUser(function(user, done) {
-//   done(null, user);
-// });
-// require('./config/passport')(passport);
 
 // Routes
 import HomeRoutes from './modules/home/routes';
 import TasksRoutes from './modules/tasks/routes';
 import UsersRoutes from './modules/users/routes';
 import AuthRoutes from './modules/auth/routes';
-app.use('/', HomeRoutes);
-app.use('/tasks', TasksRoutes);
-app.use('/users', UsersRoutes);
-app.use('/auth', AuthRoutes);
+
+// Server
+const server = express();
+server.set('port', PORT);
+
+// server.set('views', path.join(__dirname, 'public/pug/dist'));
+// server.set('view engine', 'pug');
+
+// Middlewares
+// server.use(cors(settings.origins));
+
+server.use(express.json());
+server.use(
+  session({
+    secret: SECRET,
+    resave: false,
+    saveUninitialized: true,
+    // cookie: { maxAge: 60 * 60 * 1000 } // 1 hour
+  }),
+);
+
+server.use(passport.initialize());
+server.use(passport.session());
+passport.serializeUser((user, done) => {
+  done(null, user);
+});
+passport.deserializeUser((user: User | UserSql, done) => {
+  done(null, user);
+});
+
+import { passportStrategy } from './config/passport';
+passportStrategy(passport);
+
+server.use('/', HomeRoutes);
+server.use('/tasks', TasksRoutes);
+server.use('/users', UsersRoutes);
+server.use('/auth', AuthRoutes);
 
 // starting the server
-app.listen(app.get('port'), () => {
-  console.log(`server on port ${app.get('port')}`);
+server.listen(server.get('port'), () => {
+  console.log(`server on port ${server.get('port')}`);
   DataBaseConnection();
   NoSQLDBConnection();
 });

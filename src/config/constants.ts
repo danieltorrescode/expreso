@@ -1,5 +1,5 @@
 export const DEBUG = process.env.DEBUG;
-export const DEV = process.env.DEBUG;
+export const DEV = process.env.DEV === 'true' ? true : false;
 export const SECRET = String(process.env.SECRET);
 export const PORT = process.env.PORT;
 export const DB = {
