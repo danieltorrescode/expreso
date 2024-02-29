@@ -1,11 +1,11 @@
 import express from 'express';
 import session from 'express-session';
 import passport from 'passport';
-// const cors = require('cors');
+import cors from 'cors';
 // const jwt = require('jsonwebtoken');
 // import path from 'path';
 
-import { PORT, SECRET } from './config/constants';
+import { PORT, SECRET, ORIGINS } from './config/constants';
 import { User, UserSql } from './types';
 import { DataBaseConnection, NoSQLDBConnection } from './config/databases';
 
@@ -23,7 +23,7 @@ server.set('port', PORT);
 // server.set('view engine', 'pug');
 
 // Middlewares
-// server.use(cors(settings.origins));
+server.use(cors(ORIGINS));
 
 server.use(express.json());
 server.use(

@@ -11,5 +11,5 @@ export const DB = {
 };
 export const NO_SQL_DB_URI = String(process.env.NO_SQL_DB_URI);
 export const ORIGINS = {
-  origin: [process.env.ORIGINS],
+  origin: String(process.env.ORIGINS).split(','),
 };
